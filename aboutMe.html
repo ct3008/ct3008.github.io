@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+
+    <!-- jquery -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>  
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="main.css">
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}"> -->
+
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Creative Embedded Systems</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="aboutMe.html">Setup</a>
+                    <a class="nav-link" href="projects.html">Artistic Realization</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+	<div class="container"> 
+		<div>This page will contain information about the technical setup and physical creation process for each module</div> 
+		<div class="small_header">
+			Technical Documentation
+		</div>
+		<div class="smaller_header">
+			Software Installation and Setup
+		</div>
+		<p>
+			The Arduino IDE 2.2.1 was used on a Sonoma 14.3 M1 chip MacBook Pro. After downloading the IDE, the ESP32 board had to be added. 
+			In the top bar, select Arduino IDE > Settings and type "https://dl.espressif.com/dl/package_esp32_index.json"
+			into the textbox next to "Additional boards manager URLs" to enable the ESP32 board. 
+			In the top bar, go to Tools > Boards > Board Manager. Type esp32 into the textbox and search. Install the package by Espressif.
+			I used version 2.0.11. 
+			<br>
+			After this, go back to Tools > Boards > esp32 > TTGO T1. Then go to Tools > Port and choose the option with "usbserial" in it.
+			<br>
+			Then to add the needed libraries, go to Sketch > Include Library > Manage Libraries and find TFT_eSPI by Bodmer and install it. 
+			Sample displays can then be found in File > Examples > TFT_eSPI > 160x128. Self made code could also be directly flashed to the device using the upload button. 
+			Make sure to change the upload speed to something less than the maximum in Tools > Upload Speed. I used 460800.
+			<br>
+			The first time doing this, it is necessary to modify the User_Setup.h file. To find it, go back to Arduino IDE > Settings and find the box that says "Sketchbook location: "
+			and navigate through your file system to find the location of your Arduino folder. Then go to libraries/TFT_eSPI/User_Setup_Select.h and then open up the file. 
+			Comment out the line that says "#include &lt;User_Setup.h&gt;" (line 22 for me) and uncomment out the line that says "#include &lt;User_Setups/Setup25_TTGO_T_Display.h&gt;". This should allow 
+			code to be reflected in the display of the TTGO.
+
+		</p>
+		<div class="header">
+			Module 1 - Generative Art
+		</div>
+
+
+		<div class="small_header">
+			Physical Setup Process
+		</div>
+		<div>Step 1: Using heat gun, place shrink wrap on exposed metal of battery wires to ensure there is no short circuit.</div>
+			
+		<video width="320" height="240" controls>
+			<source src="installation1/IMG_3591.MP4" type="video/mp4">
+		</video>
+		<div>Step 2: Connect battery to adapter to connect to the ESP32</div>
+		<img src="./installation1/IMG_3624.JPG" width="20%" height="20%">
+		<div>Step 3: Place ESP32 + 220mA battery pack into an already decorated envelope and align the screen with the small cutout in the front.</div>
+		<img src="./installation1/IMG_3625.JPG" width="20%" height="20%">
+		<br>
+		<img src="./installation1/IMG_3627.JPG" width="20%" height="20%">
+		<div>Step 4: Make holes in the sides of the envelope to string rope through.</div>
+		<img src="./installation1/IMG_3580.JPG" width="20%" height="20%">
+		<div>Step 5: Drill hole into popsicle stick to act as the hanger to hold up the installation.</div>
+		<img src="./installation1/IMG_3573.JPG" width="20%" height="20%">
+		<div>Step 6: Place string through hole in posicle stick and tie tightly. Then do the same through the holes in the envelope to connect. Adjust string height as needed.</div>
+		<img src="./installation1/IMG_6716.JPG" width="20%" height="20%">
+		<div>Step 7: Install! We placed all the ESP32's next to each other hanging from a gap in the ceiling right in front of the window in Milstein 5.</div>
+		<video width="320" height="240" controls>
+			<source src="installation1/IMG_3588.MP4" type="video/mp4">
+		</video>
+		<video width="320" height="240" controls>
+			<source src="installation1/IMG_3590.MP4" type="video/mp4">
+		</video>
+
+    </div>
+</body>
+</html>
