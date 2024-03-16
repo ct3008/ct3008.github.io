@@ -54,7 +54,7 @@
 		</div>
 	</nav>
 	<div class="container"> 
-		<div>This page will contain information about the technical setup and physical creation process for each module</div> 
+		<div>This page will contain information about the technical setup and physical creation process for each module and act as a ReadMe for replication and usage.</div> 
 		<div class="small_header">
 			Technical Documentation
 		</div>
@@ -86,8 +86,104 @@
 		<video width="320" height="240" controls muted>
 			<source src="./installation1/inclass_display_lab.mp4" type="video/mp4">
 		</video>
+		
 		<div class="header">
-			Module 1 - Generative Art
+			Module 2 - Interactive Art ReadMe
+		</div>
+		<div class="small_header">
+			Physical Setup Process
+		</div>
+		<div>Step 1: Collect components</div>
+		<div>
+			Gather a TTGO T1 ESP32 device, a button, a joystick, 4 differently colored LEDs, a potentiometer and as many female-female and female-male wires as possible. Double sided tape, hot glue, and solder may be required as well.
+		</div>
+		<div>Step 2: Wire power and ground</div>
+		<div>Start by inserting the ESP32's legs into the breadboard. Try to position it above the central gap in the breadboard so that both rows of legs are on either side of the gap. Connect the ground and 3V legs on the ESP32 to 
+			the two strips on the ends of the breadboard that are horizontally connected. Try to connect the 3V (or 5V) to the properly marked (+) strip and the ground, G, pin to the (-) strip.
+		</div>
+
+		<div>Step 3: Connect joystick</div>
+		<div>
+			Use 5 female-male wires to connect the pins of the joystick to the ground strip, 3V strip, and 3 other pins of the ESP32, in that order. Take note of the number used for each pin as they will serve to read the x-axis, y-axis and z-axis motions. 
+		</div>
+		<img src="./installation2/joystick.png" width="33%" height="33%">
+
+		<div>Step 4: Connect button</div>
+		<div>
+			Use a female-female wire to connect from another pin to a resistor of any value (numeric value doesn't matter, it's just used to prevent short circuits in worst case scenario) and place other leg in a new column to connect to one side of the button. 
+			Ensure that the button, like the ESP32, is set up to cross the gap in the breadboard. The other leg should then be connected to ground using another female-female wire.
+		</div>
+		<img src="./installation2/button.png" width="33%" height="33%">
+
+		<div>Step 5: Connect potentiometer</div>
+		<div>
+			Like with the button, connect the potentiometers left and rightmost leg to a power source and ground (order doesn't matter) and connect the middle leg to another pin on the ESP32.
+		</div>
+		<img src="./installation2/potentiometer.png" width="33%" height="33%">
+
+		<div>Step 6: Connect LEDs</div>
+		<div>
+			Grab the 4 LEDs and place them in a way to form a square. Connect the 3V to a a resistor that connects to the long leg of the LED in another column. The shorter leg of the LED then connects to ground to form a complete circuit.
+			Do this for all 4 LEDs. 
+		</div>
+			
+		<div class="bold">Video of circuitry construction</div>
+		<video width="320" height="240" controls muted>
+			<source src="./installation2/intallation2.mov" type="video/mp4">
+		</video>
+
+		<div class="small_header">
+			Coding Process - Arduino
+		</div>
+		<div>
+			On the arduino side, analogRead and digitalRead are used to grab the x, y, z values from the corresponding pins on the joystick within the loop() function which is repeatedly called. 
+			<br>
+			<img src="./installation2/analogread.png" width="33%" height="33%">
+			<br>
+			The same is done for the button and potentiometer readings. Within the setup() function, variables are declared and the LEDs are set up to be in output mode and the button and z-axis of the joystick are set to INPUT_PULLUP mode to register
+			their nature as buttons. Ensure to also set up the Serial baudrate for communication (I used 74880). The LEDs must also be set up so that they can dynamically take in the reading from the potentiometer for their intensity level using ledcSetup
+			and ledcAttachPin to connect different channels to the pin numbers. For ledcSetup I use '#define LEDC_FREQUENCY 1000' and '#define LEDC_RESOLUTION 8'. 
+			<br>
+			<img src="./installation2/setup.png" width="33%" height="33%">
+			<img src="./installation2/ledc.png" width="33%" height="33%">
+			<br>
+			Other than this, the main logic comes from determining a direction to move in based on the readings from the joystick. This is also where the values of the LEDs would be set. This can be determined by experimentation by printing out the x, y, z readings
+			in the serial monitor. The determining of left, right, up, and down are relative to the orientation of the joystick on the board. The exact values of MIN_THRESHOLD and MAX_THRESHOLD depend on how accurate the readings from analogRead are and the voltage used.
+			I found personally that if I used 5V, the readings from analogRead would always be capped at 4095 so it wasn't able to differentiate between the directions when the joystick was moved past a small range from the center because the voltage was too high. As such,
+			I used the 3.3V pin on the ESP32. The direction encodings I chose were 0 for up, 1 for right, 2 for down, 3 for left, 4 if left in the center, 5 if the joystick is pressed and 6 for the external button. In each case, a different light pattern should display, preferably
+			in correspondence to the direction that the joystick is moved. 
+			<br>
+			<img src="./installation2/direction.png" width="33%" height="33%">
+			<br>
+			Finally, use Serial.print(direction) and Serial.print('\n') to send over the direction so that the value can be read in the Processing side of the code. Use a delay of 100 milliseconds as well to ensure some buffer corresponding to human response speed. 
+			I also implemented a highscore readout on the ESP32's display that constantly updates using similar readings coming from the Processing side of the code. 
+			<br>
+			<img src="./installation2/display.png" width="33%" height="33%">
+			<br>
+			Make sure to include TFT_eSPI.h and declare a new TFT_eSPI object called tft and declare tft.begin() and the rotation, text size, and text color within the setup() and have a Serial.readStringUntil('\n') within loop() to fill in the ESP32 screen with the data received.
+			
+		</div>
+		<div class="small_header">
+			Coding Process - Processing
+		</div>
+		<div>
+			The game itself was adapted from a youtube tutorial and modified so that it could work with certain inputs from the arduino port. The original code can be found here: https://www.youtube.com/watch?v=Q5cMcx5uotQ&ab_channel=BarneyCodes. To modify it, any keyPressed() events 
+			should be removed and replaced with logic to to read in from serial. Declare a new Serial object called myPort and within setup() set 'myPort = new Serial(this, Serial.list()[4], baudrate)' where the index of Serial.list() can be found by experimentation and baudrate is the 
+			same as the one used in the Arduino side. Import 'processing.serial.*' to do this. Within draw() call a helper function that checks for port availability and stores values coming from myPort using 'myPort.readStringUntil('\n')'. Trim the value and parseInt it. Determine the 
+			snake's current direction by accessing the snake object's x and y velocity with snake.vel.x and snake.vel.y. Then use a switch statement to update the velocities as long as the current direction is not in the opposite direction. In the event of direction 5 or 6 (the joystick button
+			is pressed or the external one is), update the logic accordingly. I set it so pressing the joystick replaces a mouseclick and can be used to restart the game from the startscreen, and direction 6 immediately sets the snake status to dead to end the game. 
+			The highscore value can be sent using myPort.write(). I had a slight struggle here because I would receive the highscore value back in my Processing code from the port and the Processing code would try to evaluate it as an integer. To fix this, I add a try and catch exception around the parseInt logic.
+
+		</div>
+
+		<div class="small_header">
+			In-Class Installation Process
+		</div>
+
+		<span>----------------------------------------------------------</span>
+		
+		<div class="header">
+			Module 1 - Generative Art ReadMe
 		</div>
 
 
