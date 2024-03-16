@@ -36,7 +36,87 @@
 		</div>
 	</nav>
 	<div class="container">
-		<div>This page will contain information about the artistic vision and code refining process needed to achieve it for each module</div> 
+		<div>This page will contain information about the artistic vision and code refining process needed to achieve it for each module.</div> 
+		<div class="header">
+			Module 2 - Interactive Art
+		</div>
+		<div class="small_header">
+			Artistic Vision
+		</div>
+		<p>
+			The goal of this module was to use sensor data to do something creative with the ESP32's capabilities. I intended to make a game from the get go thanks
+			to the presence of the joystick and as the circuitry came together, I started to think about how to best enclose everything. in order to play the game I 
+			needed to hold up the entire breadboard together to avoid being stabbed by the small pins underneath. As such, I had the idea to make the board look like a game controller. 
+			This is also why I included the LEDs to mimic the 4 buttons typically on game controllers. 
+		</p>
+		<p>
+			The entire creative process was one of iterative building where I'd start with one component, test it out with a battery and then the ESP32 to ensure nothing blew up, and after
+			verifying that it works in the context of the game, modifying the grand idea for the enclosement to follow suit. Initially I wanted to make a drawing game with the potentiometer,
+			but because of the difficulty of only having two different types of potentiometers that were oriented differently, I scrapped the idea because it was less likely to be aesthetic 
+			and stable that way. 
+		</p>
+		<p>Some examples of the iterative testing process (potentiometer, LED, joystick):</p>
+		<video width="320" height="240" controls muted>
+			<source src="./creative2/IMG_4189.mov" type="video/mp4">
+		</video>
+		<video width="320" height="240" controls muted>
+			<source src="./creative2/IMG_4194.mov" type="video/mp4">
+		</video>
+
+		<p>
+			After putting all the pieces together, to fit everything into some form of enclosure, I made sure to clip the wires to be close to the exact length so that there was no excess. 
+		</p>
+		
+		<img src="./creative2/IMG_4209.jpg" width="33%" height="33%"> 
+		<span> ----------> </span>
+		<img src="./creative2/IMG_4214.jpg" width="33%" height="33%">
+		<video width="320" height="240" controls muted>
+			<source src="./creative2/IMG_4208.mov" type="video/mp4">
+		</video>
+
+		<p>
+			Because I didn't have access to a 3D printer over break, I ended up having to use cardboard to try to make my enclosure. I started by making a generic box that would be open in
+			the center so that all the components could be viewed from the outside and any last minute wiring adjustments could be made after everything was put together. I had no plan going
+			in, but I put the breadboard on the cardboard and drew the outline and started folding and cutting things until I made an origami box by chance. 
+		</p>
+		<img src="./creative2/IMG_4218.jpg" width="33%" height="33%"> 
+		<span> ----------> </span>
+		<img src="./creative2/IMG_4221.jpg" width="33%" height="33%"> 
+
+		<p>
+			The box itself would have been adequate to hold all the pieces safely, but because it would be shown in class, it was better to 1) fully enclose the circuitry and 2) make it something 
+			fun to play with and engage people. This led to the fully formed creation of the game controller that looks like a X-box controller to make it easy to hold and familiar. Even the charging
+			chord sticking out from the controller is reminiscent of old school gaming. I drew out an outline for the top and bottom and cut them out with an exacto knife and got multiple long strips 
+			of cardboard and rolled them up to make it more pliable to act as the walls of the controllers. I then added some vertical pieces of cardboard to the inside for stability and then hot-glued 
+			everything together. The top controller had 4 rectangles cut out of it to well encompass each major component enough to just barely peak out of the top of the controller. I also added a chomping
+			sound to the code when the snake ate the fruit and had lights turn on for each direction the joystick moved in.
+		</p>
+		<img src="./creative2/IMG_4223.jpg" width="33%" height="33%"> 
+		<br>
+		<video width="320" height="240" controls muted>
+			<source src="./creative2/IMG_4226.MOV" type="video/mp4">
+		</video>
+		<br>
+		<p>
+			In order to meet the requirements of the assignment, I needed to incorporate the potentiometer somehow, so I ended up using it to figure vary the brightness of the LEDs. Because I decided to do it
+			after already assembling the box, I had to slip in the wires through a small gap in the back and hide them within the framework and then sodder the wire to the joystick and stick the potentiometer
+			to the outside of the box.
+			<br>
+			<img src="./creative2/IMG_4229.jpg" width="33%" height="33%">
+			<br>
+		</p>
+
+		<div>
+			Final Result:
+		</div>
+		<img src="./creative2/IMG_4230.jpg" width="33%" height="33%"> 
+		<br>
+		<video width="320" height="240" controls muted>
+			<source src="./creative2/IMG_4233.MOV" type="video/mp4">
+		</video>
+
+		<br>
+		<span>----------------------------------------------------------</span>
 		<div class="header">
 			Module 1 - Generative Art
 		</div>
@@ -68,12 +148,12 @@
 		</p>
 		<p>The first draft with my artistic story vision. Has a failed love story with a boy running from a confession and a PSA to sleep afterwards. All positions are hard-coded at this point.</p>
 		<video width="320" height="240" controls>
-			<source src="creative1/old_final.mp4" type="video/mp4">
+			<source src="./creative1/old_final.mp4" type="video/mp4">
 		</video>
 		<br>
 		<p>A fixed version with a more refined randomized "running" visual of the boy that adds in a display of the ESP32's computational power.</p>
 		<video width="320" height="240" controls>
-			<source src="creative1/fix.mp4" type="video/mp4">
+			<source src="./creative1/fix.mp4" type="video/mp4">
 		</video>
 		<p>
 			After this, I also wanted to implement another random function where phrases and emojis would appear at random locations on the screen 
@@ -82,13 +162,13 @@
 		<br>
 		<p>First attempt at randomized text:</p>
 		<video width="320" height="240" controls>
-			<source src="creative1/rando_1.mp4" type="video/mp4">
+			<source src="./creative1/rando_1.mp4" type="video/mp4">
 		</video>
 		<p>
 			Final Attempt at randomized text:
 		</p>
 		<video width="320" height="240" controls>
-			<source src="creative1/rando_fix.mp4" type="video/mp4">
+			<source src="./creative1/rando_fix.mp4" type="video/mp4">
 		</video>
 
 		<div class="small_header">Complications</div>
@@ -105,7 +185,7 @@
 		<br>
 		<br>
 		<video width="320" height="240" controls>
-			<source src="creative1/new_final_2.mp4" type="video/mp4">
+			<source src="./creative1/new_final_2.mp4" type="video/mp4">
 		</video>
 
 		<p>
